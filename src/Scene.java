@@ -6,6 +6,11 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Draws a line based on x,y coordinates stored in an array
+ * @author jwhalley
+ *
+ */
 public class Scene implements GLEventListener {
 
     @Override
