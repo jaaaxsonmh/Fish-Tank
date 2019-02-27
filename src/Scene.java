@@ -1,6 +1,7 @@
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.Animator;
+import objects.Tank;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -15,6 +16,15 @@ public class Scene implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable drawable) {
+        GL2 gl = drawable.getGL().getGL2();
+
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+
+        Tank tank = new Tank();
+        tank.draw(gl);
+
+        gl.glFlush();
+
 
 
     }
@@ -26,7 +36,9 @@ public class Scene implements GLEventListener {
 
     @Override
     public void init(GLAutoDrawable drawable) {
-
+      GL2 gl = drawable.getGL().getGL2();
+      gl.glBlendFunc(770, 771);
+      gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @Override
@@ -35,7 +47,7 @@ public class Scene implements GLEventListener {
     }
 
     public static void main(String[] args) {
-        Frame frame = new Frame("Jack's Fish Tank");
+        Frame frame = new Frame("Jack's Fish(y) Tank");
         GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
         GLCanvas canvas = new GLCanvas(capabilities);
