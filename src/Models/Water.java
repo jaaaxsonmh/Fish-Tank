@@ -6,12 +6,16 @@ import ulits.Colour;
 
 public class Water {
 
-    private final static Colour BLUE_800 = new Colour( 0.25882f, 0.64706f, 0.96078f , 0.6f);
-    private final static Colour LIGHT_BLUE_800 = new Colour(0.16078f, 0.71373f, 0.96471f, 0.6f );
+    private final static Colour BLUE_800 = new Colour( 0.25882f, 0.64706f, 0.96078f , 0.8f);
+    private final static Colour LIGHT_BLUE_800 = new Colour(0.16078f, 0.71373f, 0.96471f, 0.8f );
 
-    private final static Colour BLUE_900 = new Colour(0.05098f, 0.27843f, 0.63137f, 0.6f);
-    private final static Colour LIGHT_BLUE_900 = new Colour(0.00392f, 0.34118f, 0.60784f, 0.6f);
+    private final static Colour BLUE_900 = new Colour(0.05098f, 0.27843f, 0.63137f, 0.8f);
+    private final static Colour LIGHT_BLUE_900 = new Colour(0.00392f, 0.34118f, 0.60784f, 0.8f);
 
+
+    // defining heights as will be reused with the bouncing of fishes (fish wont collide with wave water)
+    // if wave water height changes, then the water height will decrease to allow for the bigger waves
+    // while leaving enough space for the buttons
     private final static float WAVE_WATER_HEIGHT = 0.05f;
     private final static float STILL_WATER_HEIGHT = 0.90f - WAVE_WATER_HEIGHT;
 
