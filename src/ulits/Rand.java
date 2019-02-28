@@ -11,7 +11,7 @@ public class Rand {
     public final static Random rand = new Random();
 
     public static int getIntBetween(int min, int max) {
-        return rand.nextInt() * (max - min) + min;
+        return rand.nextInt((max - min) + 1)+ min;
     }
 
     public static float getFloatBetween(float min, float max) {
