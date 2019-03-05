@@ -4,6 +4,8 @@ import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 import objects.Tank;
+import ulits.Circle;
+import ulits.Colour;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -20,10 +22,13 @@ import static com.jogamp.opengl.GL2GL3.GL_POLYGON_SMOOTH;
 public class Scene implements GLEventListener, Runnable {
 
     private Tank tank;
+    private Circle circle;
+    private Colour BLUE_800 = new Colour(0.25882f, 0.64706f, 0.96078f, 0.8f);
 
     private Scene() {
         super();
         tank = new Tank();
+        circle = new Circle(0.5f, BLUE_800);
     }
 
     @Override
@@ -35,7 +40,7 @@ public class Scene implements GLEventListener, Runnable {
         // draw the tank
         // sand and water.
         tank.draw(gl);
-
+        circle.draw(gl, 0, 0);
 
 
 

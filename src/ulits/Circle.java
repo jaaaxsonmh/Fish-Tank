@@ -32,7 +32,7 @@ public class Circle {
 
         // draw the outer points with outer colour
         Colour.setColourRGBA(outer, gl);
-        for (int j = 0; j <= 360; j++) {
+        for (int j = 0; j <= 361; j++) {
             double angle = 2 * Math.PI * j / 361;
             double x = Math.cos(angle) * radius;
             double y = Math.sin(angle) * radius;
