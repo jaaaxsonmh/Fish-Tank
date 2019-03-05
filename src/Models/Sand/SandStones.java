@@ -27,15 +27,13 @@ public class SandStones {
 
         float offset_x = Rand.getFloatBetween(1.0f, -1.0f);
         float offset_y = Rand.getFloatBetween(-1.0f, SandBase.BASE_HEIGHT - RADIUS);
-
-
         gl.glBegin(GL2.GL_LINE_LOOP);
         Colour.setColourRGBA(getNextSandColour(), gl);
-        for(int i =0; i <= 300; i++){
-            double angle = 2 * Math.PI * i / 300;
+        for (int j = 0; j <= 300; j++) {
+            double angle = 2 * Math.PI * j / 300;
             double x = Math.cos(angle) * RADIUS;
             double y = Math.sin(angle) * RADIUS;
-            gl.glVertex2d(x+offset_x,y+offset_y);
+            gl.glVertex2d(x + offset_x, y + offset_y);
         }
         gl.glEnd();
     }

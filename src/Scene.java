@@ -1,31 +1,47 @@
+import Models.Sand.SandBase;
+import Models.Water;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
-import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.FPSAnimator;
 import objects.Tank;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import static com.jogamp.opengl.GL.GL_BLEND;
+import static com.jogamp.opengl.GL2GL3.GL_POLYGON_SMOOTH;
+
 /**
  * Draws a line based on x,y coordinates stored in an array
  * @author jwhalley
  *
  */
-public class Scene implements GLEventListener {
+public class Scene implements GLEventListener, Runnable {
+
+    private Tank tank;
+
+    private Scene() {
+        super();
+        tank = new Tank();
+    }
 
     @Override
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
-
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+        gl.glEnable(GL_BLEND);
 
-        Tank tank = new Tank();
+        // draw the tank
+        // sand and water.
         tank.draw(gl);
 
+
+
+
+
+
         gl.glFlush();
-
-
 
     }
 
@@ -37,7 +53,6 @@ public class Scene implements GLEventListener {
     @Override
     public void init(GLAutoDrawable drawable) {
       GL2 gl = drawable.getGL().getGL2();
-      gl.glBlendFunc(770, 771);
       gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
@@ -48,15 +63,22 @@ public class Scene implements GLEventListener {
 
     public static void main(String[] args) {
         Frame frame = new Frame("Jack's Fish(y) Tank");
+        frame.setResizable(false);
         GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
         GLCanvas canvas = new GLCanvas(capabilities);
+
         Scene scene = new Scene();
+
+        // add event listeners
+
+
         canvas.addGLEventListener(scene);
         frame.add(canvas);
         frame.setSize(640, 640);
 
-        final Animator animator = new Animator(canvas);
+        final FPSAnimator animator = new FPSAnimator(canvas, 60);
+        animator.start();
 
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -77,4 +99,8 @@ public class Scene implements GLEventListener {
 
     }
 
+    @Override
+    public void run() {
+
+    }
 }
