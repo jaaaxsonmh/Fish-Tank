@@ -25,9 +25,13 @@ public class Tank {
 
         sand.draw(gl);
 
-        gl.glEnable(GL_POLYGON_SMOOTH);
+        //Still water
+        water.draw(gl);
+
+        //Wave water
+        gl.glEnable(GL2.GL_POLYGON_SMOOTH);
         water.drawWave(gl);
-        gl.glDisable(GL_POLYGON_SMOOTH);
+        gl.glDisable(GL2.GL_POLYGON_SMOOTH);
 
 //        SandStones pebbles = new SandStones();
 //

@@ -30,7 +30,7 @@ public class Scene implements GLEventListener, Runnable {
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-        gl.glEnable(GL_BLEND);
+        gl.glEnable(GL2.GL_BLEND);
 
         // draw the tank
         // sand and water.
