@@ -1,11 +1,9 @@
 package objects;
 
 import Models.Sand.SandBase;
-import Models.Sand.SandStones;
 import com.jogamp.opengl.GL2;
 import Models.Water;
 
-import static com.jogamp.opengl.GL2GL3.GL_POLYGON_SMOOTH;
 
 public class Tank {
 
@@ -33,11 +31,5 @@ public class Tank {
         water.drawWave(gl);
         gl.glDisable(GL2.GL_POLYGON_SMOOTH);
 
-//        SandStones pebbles = new SandStones();
-//
-//        // 3000 pebbles
-//        for(int i =0; i <= 3000; i++) {
-//            pebbles.draw(gl);
-//        }
     }
 }
