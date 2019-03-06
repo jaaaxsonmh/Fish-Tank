@@ -7,8 +7,8 @@ import java.util.List;
 
 
 public class Circle {
-    private float radius;
-    public float transparency;
+    protected float radius;
+    protected float transparency;
     private Colour inner, outer;
 
     public Circle(float transparency, float radius, Colour inner, Colour outer) {
@@ -16,7 +16,6 @@ public class Circle {
         this.radius = radius;
         this.inner = inner;
         this.outer = outer;
-
     }
 
     public Circle(float transparency, float radius, Colour inner) {
@@ -28,11 +27,10 @@ public class Circle {
    public void draw(GL2 gl, float offsetX, float offsetY) {
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
         // draw inner point with inner colour
-        Colour.setColourRGBA(inner, gl);
+        gl.glColor4f(1.0f, 1.0f, 1.0f, transparency);
         gl.glVertex2f(offsetX, offsetY);
 
         // draw the outer points with outer colour
-        Colour.setColourRGBA(outer, gl);
         for (int j = 0; j <= 361; j++) {
             double angle = 2 * Math.PI * j / 361;
             double x = Math.cos(angle) * radius;

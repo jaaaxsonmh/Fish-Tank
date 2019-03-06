@@ -1,12 +1,8 @@
 import Models.Bubble;
-import Models.Sand.SandBase;
-import Models.Water;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 import objects.Tank;
-import ulits.Circle;
-import ulits.Colour;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -16,8 +12,6 @@ import java.awt.event.WindowEvent;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static com.jogamp.opengl.GL.GL_BLEND;
-
 
 /**
  * Draws a line based on x,y coordinates stored in an array
@@ -26,14 +20,17 @@ import static com.jogamp.opengl.GL.GL_BLEND;
  */
 public class Scene implements GLEventListener, Runnable {
 
-    private Tank tank;
-    private Queue<Bubble> bubble;
+    private Tank tank = new Tank();
+    private Queue<Bubble> bubbles;
+
+    private static final int BUBBLE_AMOUNT = 40;
+    private boolean enabled = true;
 
     private Scene() {
         super();
-        tank = new Tank();
-        bubble = new ConcurrentLinkedQueue<>();
+        bubbles = new ConcurrentLinkedQueue<>();
     }
+
 
     @Override
     public void display(GLAutoDrawable drawable) {
@@ -41,19 +38,31 @@ public class Scene implements GLEventListener, Runnable {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
-
-        Bubble.draw
         // draw the tank
         // sand and water.
         tank.draw(gl);
 
+        // draw bubbles
+        if(enabled) {
+            for(Bubble bub : bubbles) {
+                bub.draw(gl);
+            }
+        }
 
+        float transparency = 1.0f;
+        float radius = 0.05f;
+        float offsetX = 0.0f;
+        float offsetY = -0.0f;
+        float age = 0.01f;
 
+        Bubble bubble = new Bubble(radius, offsetX, offsetY, age, transparency);
+        bubble.draw(gl);
 
-
+        gl.glEnd();
         gl.glFlush();
-
     }
+
+
 
     @Override
     public void dispose(GLAutoDrawable drawable) {
@@ -69,6 +78,24 @@ public class Scene implements GLEventListener, Runnable {
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 
+    }
+
+    @Override
+    public void run() {
+        while(enabled) {
+            if(bubbles.size() < BUBBLE_AMOUNT) {
+                float transparency = 1.0f;
+                float radius = 0.05f;
+                float offsetX = 0.0f;
+                float offsetY = -0.0f;
+                float age = 0.01f;
+
+                bubbles.add(new Bubble(radius, offsetX, offsetY, age, transparency));
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignored) {}
+        }
     }
 
     public static void main(String[] args) {
@@ -109,8 +136,5 @@ public class Scene implements GLEventListener, Runnable {
 
     }
 
-    @Override
-    public void run() {
 
-    }
 }

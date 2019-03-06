@@ -22,11 +22,20 @@ public class Bubble extends Circle {
     public void draw(GL2 gl){
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
         super.draw(gl, offsetX, offsetY);
-        offsetY += AGE;
+        this.offsetY += AGE;
 
         if(transparency > 0) {
-            transparency -= AGE/2;
+            this.transparency -= AGE/2;
+        } else {
+            transparency = 0;
         }
+
+        if(radius > 0) {
+            this.radius -= AGE/50;
+        } else {
+            radius = 0;
+        }
+        gl.glEnd();
     }
 
 }
