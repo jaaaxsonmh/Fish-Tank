@@ -1,3 +1,4 @@
+import Models.Bubble;
 import Models.Sand.SandBase;
 import Models.Water;
 import com.jogamp.opengl.*;
@@ -11,8 +12,12 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import static com.jogamp.opengl.GL.GL_BLEND;
-import static com.jogamp.opengl.GL2GL3.GL_POLYGON_SMOOTH;
+
 
 /**
  * Draws a line based on x,y coordinates stored in an array
@@ -22,13 +27,12 @@ import static com.jogamp.opengl.GL2GL3.GL_POLYGON_SMOOTH;
 public class Scene implements GLEventListener, Runnable {
 
     private Tank tank;
-    private Circle circle;
-    private Colour BLUE_800 = new Colour(0.25882f, 0.64706f, 0.96078f, 0.8f);
+    private Queue<Bubble> bubble;
 
     private Scene() {
         super();
         tank = new Tank();
-        circle = new Circle(0.5f, BLUE_800);
+        bubble = new ConcurrentLinkedQueue<>();
     }
 
     @Override
@@ -37,10 +41,11 @@ public class Scene implements GLEventListener, Runnable {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
+
+        Bubble.draw
         // draw the tank
         // sand and water.
         tank.draw(gl);
-        circle.draw(gl, 0, 0);
 
 
 
