@@ -68,4 +68,8 @@ public class Colour {
         gl.glColor4f(colour.red, colour.green, colour.blue, colour.alpha);
     }
 
+    public static void setDynamicColourRGBA(Colour colour, float transparency, GL2 gl) {
+        gl.glColor4f(colour.red, colour.green, colour.blue, transparency);
+    }
+
 }

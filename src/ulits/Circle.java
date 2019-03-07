@@ -2,36 +2,25 @@ package ulits;
 
 import com.jogamp.opengl.GL2;
 
-import java.util.Arrays;
-import java.util.List;
-
-
 public class Circle {
     protected float radius;
     protected float transparency;
-    private Colour inner, outer;
 
-    public Circle(float transparency, float radius, Colour inner, Colour outer) {
+
+    public Circle(float transparency, float radius) {
         this.transparency = transparency;
         this.radius = radius;
-        this.inner = inner;
-        this.outer = outer;
+
     }
 
-    public Circle(float transparency, float radius, Colour inner) {
-        // recursively call without an outer colour (solid fill circle)
-        // used with fish eyes
-        this(transparency, radius, inner, inner);
-    }
-
-   public void draw(GL2 gl, float offsetX, float offsetY) {
+   public void draw(GL2 gl, float offsetX, float offsetY, Colour colour, float transparency) {
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
         // draw inner point with inner colour
-        gl.glColor4f(1.0f, 1.0f, 1.0f, transparency);
         gl.glVertex2f(offsetX, offsetY);
+        Colour.setDynamicColourRGBA(colour, transparency, gl);
 
-        // draw the outer points with outer colour
-        for (int j = 0; j <= 361; j++) {
+
+       for (int j = 0; j <= 361; j++) {
             double angle = 2 * Math.PI * j / 361;
             double x = Math.cos(angle) * radius;
             double y = Math.sin(angle) * radius;

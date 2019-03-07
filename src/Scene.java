@@ -1,8 +1,11 @@
-import Models.Bubble;
+import Managers.BubbleManager;
+import Models.Bubbles.Bubble;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 import objects.Tank;
+import ulits.Colour;
+import ulits.Rand;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -21,9 +24,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Scene implements GLEventListener, Runnable {
 
     private Tank tank = new Tank();
+    private BubbleManager bub = new BubbleManager();
     private Queue<Bubble> bubbles;
 
-    private static final int BUBBLE_AMOUNT = 40;
+    private static final int BUBBLE_AMOUNT = 5;
     private boolean enabled = true;
 
     private Scene() {
@@ -42,21 +46,8 @@ public class Scene implements GLEventListener, Runnable {
         // sand and water.
         tank.draw(gl);
 
-        // draw bubbles
-        if(enabled) {
-            for(Bubble bub : bubbles) {
-                bub.draw(gl);
-            }
-        }
-
-        float transparency = 1.0f;
-        float radius = 0.05f;
-        float offsetX = 0.0f;
-        float offsetY = -0.0f;
-        float age = 0.01f;
-
-        Bubble bubble = new Bubble(radius, offsetX, offsetY, age, transparency);
-        bubble.draw(gl);
+        bub.populate();
+        bub.draw(gl);
 
         gl.glEnd();
         gl.glFlush();
@@ -82,20 +73,7 @@ public class Scene implements GLEventListener, Runnable {
 
     @Override
     public void run() {
-        while(enabled) {
-            if(bubbles.size() < BUBBLE_AMOUNT) {
-                float transparency = 1.0f;
-                float radius = 0.05f;
-                float offsetX = 0.0f;
-                float offsetY = -0.0f;
-                float age = 0.01f;
 
-                bubbles.add(new Bubble(radius, offsetX, offsetY, age, transparency));
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ignored) {}
-        }
     }
 
     public static void main(String[] args) {
@@ -114,7 +92,7 @@ public class Scene implements GLEventListener, Runnable {
         frame.add(canvas);
         frame.setSize(640, 640);
 
-        final FPSAnimator animator = new FPSAnimator(canvas, 60);
+        final FPSAnimator animator = new FPSAnimator(canvas, 30);
         animator.start();
 
         frame.addWindowListener(new WindowAdapter() {

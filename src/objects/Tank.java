@@ -28,7 +28,7 @@ public class Tank {
 
         //Wave water
         gl.glEnable(GL2.GL_POLYGON_SMOOTH);
-        water.drawWave(gl);
+        water.animate(gl);
         gl.glDisable(GL2.GL_POLYGON_SMOOTH);
 
     }

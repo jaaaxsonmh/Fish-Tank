@@ -18,6 +18,10 @@ public class Rand {
         return rand.nextFloat() * (max - min) + min;
     }
 
+    public static float getFloatBetweenMin(float min, float max) {
+        return rand.nextFloat() * (min) + max;
+    }
+
     public static Colour getRandomRGB() {
         return new Colour(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
     }
