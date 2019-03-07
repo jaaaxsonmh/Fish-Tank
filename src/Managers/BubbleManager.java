@@ -42,6 +42,6 @@ public class BubbleManager {
     }
 
     public void reset() {
-        this.
+
     }
 }
