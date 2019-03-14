@@ -10,7 +10,8 @@ public class Bubble extends Circle {
 
     private Colour colour;
     private final float AGE;
-    private float offsetX, offsetY;
+    public float offsetX;
+    public float offsetY;
 
     public Bubble(float radius, float offsetX, float offsetY, float age, Colour colour, float transparency) {
         super(transparency, radius);
@@ -26,7 +27,6 @@ public class Bubble extends Circle {
 
     public void animate(GL2 gl){
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
-
 
         this.offsetY += AGE;
 
@@ -44,8 +44,5 @@ public class Bubble extends Circle {
         }
 
         gl.glEnd();
-    }
-
-    public void reset() {
     }
 }

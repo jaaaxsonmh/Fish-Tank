@@ -30,6 +30,5 @@ public class Tank {
         gl.glEnable(GL2.GL_POLYGON_SMOOTH);
         water.animate(gl);
         gl.glDisable(GL2.GL_POLYGON_SMOOTH);
-
     }
 }

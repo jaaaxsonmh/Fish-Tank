@@ -21,7 +21,6 @@ public class SandBase {
         Colour.setColourRGBA(YELLOW_100, gl);
         gl.glVertex2f(-1.0f, BASE_HEIGHT);
 
-
         //top right
         Colour.setColourRGBA(AMBER_200, gl);
         gl.glVertex2f(1.0f, BASE_HEIGHT);
@@ -30,12 +29,10 @@ public class SandBase {
         Colour.setColourRGBA(AMBER_500, gl);
         gl.glVertex2f(1.0f, -1.0f);
 
-
         //bottom left
         Colour.setColourRGBA(YELLOW_400, gl);
         gl.glVertex2f(-1.0f, -1.0f);
         gl.glDisable(GL2.GL_BLEND);
-
 
         gl.glEnd();
     }

@@ -1,39 +1,36 @@
 import Managers.BubbleManager;
-import Models.Bubbles.Bubble;
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
+import objects.Pump;
 import objects.Tank;
-import ulits.Colour;
-import ulits.Rand;
+import Models.Button;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-
 /**
  * Draws a line based on x,y coordinates stored in an array
- * @author jwhalley
  *
+ * @author jwhalley
  */
-public class Scene implements GLEventListener, Runnable {
+public class Scene implements GLEventListener, MouseListener {
+    private static final int BUTTONS_SIZE = 2;
+    private boolean enabled =  true;
 
     private Tank tank = new Tank();
+    private Button button = new Button();
     private BubbleManager bub = new BubbleManager();
-    private Queue<Bubble> bubbles;
+    private Pump pump = new Pump();
+    private int base;
+    private static int winSize;
 
-    private static final int BUBBLE_AMOUNT = 5;
-    private boolean enabled = true;
+    private Button[] buttons;
 
-    private Scene() {
-        super();
-        bubbles = new ConcurrentLinkedQueue<>();
-    }
 
 
     @Override
@@ -46,13 +43,18 @@ public class Scene implements GLEventListener, Runnable {
         // sand and water.
         tank.draw(gl);
 
-        bub.populate();
+        button.draw(gl);
+        button.addTitle(gl);
+
+        //draw pump from list
+        gl.glCallList(pump.baseList);
+        gl.glCallList(pump.holderList);
+        gl.glCallList(pump.plugList);
+
         bub.draw(gl);
 
-        gl.glEnd();
         gl.glFlush();
     }
-
 
 
     @Override
@@ -62,8 +64,17 @@ public class Scene implements GLEventListener, Runnable {
 
     @Override
     public void init(GLAutoDrawable drawable) {
-      GL2 gl = drawable.getGL().getGL2();
-      gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        GL2 gl = drawable.getGL().getGL2();
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glEnable(GL2.GL_BLEND);
+
+        base = gl.glGenLists(3);
+
+        //create and pre-compile the display lists
+        pump.createBaseList(gl, base);
+        pump.createHolderList(gl, base + 1);
+        pump.createPlugList(gl, base + 2);
+
     }
 
     @Override
@@ -72,11 +83,43 @@ public class Scene implements GLEventListener, Runnable {
     }
 
     @Override
-    public void run() {
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        float mouseX = e.getX();
+        float mouseY = winSize - e.getY();
+
+        float openglX = 2.0f * (mouseX / winSize) - 1.0f;
+        float openglY = 2.0f * (mouseY / winSize) - 1.0f;
+
+        if (openglY >= 0.80f) {
+            bub.isButtonEnabled =  true;
+
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 
     public static void main(String[] args) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        winSize = (int) screenSize.getWidth() / 2;
+
         Frame frame = new Frame("Jack's Fish(y) Tank");
         frame.setResizable(false);
         GLProfile profile = GLProfile.get(GLProfile.GL2);
@@ -86,20 +129,17 @@ public class Scene implements GLEventListener, Runnable {
         Scene scene = new Scene();
 
         // add event listeners
-
-
         canvas.addGLEventListener(scene);
+        canvas.addMouseListener(scene);
+
         frame.add(canvas);
-        frame.setSize(640, 640);
+        frame.setSize(winSize, winSize);
 
         final FPSAnimator animator = new FPSAnimator(canvas, 30);
         animator.start();
 
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                // Run this on another thread than the AWT event queue to
-                // make sure the call to Animator.stop() completes before
-                // exiting
                 new Thread(() -> {
                     animator.stop();
                     System.exit(0);
@@ -111,8 +151,5 @@ public class Scene implements GLEventListener, Runnable {
         frame.setVisible(true);
 
         canvas.requestFocusInWindow();
-
     }
-
-
 }

@@ -3,8 +3,8 @@ package ulits;
 import com.jogamp.opengl.GL2;
 
 public class Circle {
-    protected float radius;
-    protected float transparency;
+    public float radius;
+    public float transparency;
 
 
     public Circle(float transparency, float radius) {
@@ -16,8 +16,8 @@ public class Circle {
    public void draw(GL2 gl, float offsetX, float offsetY, Colour colour, float transparency) {
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
         // draw inner point with inner colour
-        gl.glVertex2f(offsetX, offsetY);
-        Colour.setDynamicColourRGBA(colour, transparency, gl);
+       Colour.setDynamicColourRGBA(colour, transparency, gl);
+       gl.glVertex2f(offsetX, offsetY);
 
 
        for (int j = 0; j <= 361; j++) {
