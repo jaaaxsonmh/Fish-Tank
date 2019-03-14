@@ -18,7 +18,7 @@ import java.awt.event.WindowEvent;
  *
  * @author jwhalley
  */
-public class Scene implements GLEventListener, MouseListener {
+public class Scene implements GLEventListener, MouseListener{
     private static final int BUTTONS_SIZE = 2;
     private boolean enabled =  true;
 
@@ -82,6 +82,9 @@ public class Scene implements GLEventListener, MouseListener {
 
     }
 
+
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -101,8 +104,10 @@ public class Scene implements GLEventListener, MouseListener {
         float openglY = 2.0f * (mouseY / winSize) - 1.0f;
 
         if (openglY >= 0.80f) {
-            bub.isButtonEnabled =  true;
-
+            if (enabled) {
+                bub.reset();
+                bub.populate();
+            }
         }
     }
 

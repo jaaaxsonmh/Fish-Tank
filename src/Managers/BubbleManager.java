@@ -15,8 +15,6 @@ public class BubbleManager {
     private List<Bubble> bubbles = new ArrayList<>();
     private static final int BUBBLE_AMOUNT = 40;
     float transparency, radius, offsetX, offsetY, age;
-    private Boolean isButtonEnabled;
-
 
     public void populate() {
         for(int i = 0; i < BUBBLE_AMOUNT; i++) {
@@ -33,11 +31,9 @@ public class BubbleManager {
 
     public void draw(GL2 gl) {
         for (Bubble bub : bubbles) {
-            if(isButtonEnabled) {
                 bub.draw(gl);
                 bub.animate(gl);
                 reset();
-            }
         }
     }
 
