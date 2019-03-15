@@ -60,6 +60,9 @@ public class Button {
         Colour.setColourRGBA(WHITE, gl);
         gl.glRasterPos2d(-0.93, 0.87f);
         glut.glutBitmapString(GLUT.BITMAP_TIMES_ROMAN_24, "Bubbles");
+
+        gl.glRasterPos2d(-0.53, 0.87f);
+        glut.glutBitmapString(GLUT.BITMAP_TIMES_ROMAN_24, "New Fish");
     }
 
 
