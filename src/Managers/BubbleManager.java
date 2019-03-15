@@ -14,26 +14,27 @@ public class BubbleManager {
 
     private List<Bubble> bubbles = new ArrayList<>();
     private static final int BUBBLE_AMOUNT = 40;
+    public boolean enabled;
     float transparency, radius, offsetX, offsetY, age;
 
     public void populate() {
-        for(int i = 0; i < BUBBLE_AMOUNT; i++) {
             transparency = Rand.getFloatBetween(0.5f, 1.0f);
             radius = Rand.getFloatBetween(0.03f, 0.05f);
             offsetX = Rand.getFloatBetween(0.7f, 0.9f);
             offsetY = Rand.getFloatBetween(-0.7f, -0.8f);
             age = Rand.getFloatBetween(0.005f, 0.01f);
 
-
             bubbles.add(new Bubble(radius, offsetX, offsetY, age, WHITE, transparency));
-        }
     }
 
     public void draw(GL2 gl) {
-        for (Bubble bub : bubbles) {
+        if(enabled) {
+            populate();
+            for (Bubble bub : bubbles) {
                 bub.draw(gl);
                 bub.animate(gl);
                 reset();
+            }
         }
     }
 
@@ -55,5 +56,9 @@ public class BubbleManager {
                 bub.radius = radius;
             }
         }
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

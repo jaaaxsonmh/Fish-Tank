@@ -104,10 +104,12 @@ public class Scene implements GLEventListener, MouseListener{
         float openglY = 2.0f * (mouseY / winSize) - 1.0f;
 
         if (openglY >= 0.80f) {
-            if (enabled) {
-                bub.reset();
-                bub.populate();
+            if(enabled) {
+                enabled = false;
+            } else {
+                enabled = true;
             }
+            bub.setEnabled(enabled);
         }
     }
 
