@@ -148,7 +148,14 @@ public class Scene implements GLEventListener, MouseListener{
                     fishs.add(fish);
                 }
                 if(buttons[i].isEnabled()) {
-                    // start thread for bubbles
+                    if(i == ButtonEnum.BUBBLES.ID) {
+                        bub.setEnabled(true);
+                    }
+                }
+                if(!buttons[i].isEnabled()){
+                    if(i == ButtonEnum.BUBBLES.ID) {
+                        bub.setEnabled(false);
+                    }
                 }
             }
         }

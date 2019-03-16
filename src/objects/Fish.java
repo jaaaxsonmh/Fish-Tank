@@ -53,6 +53,5 @@ public class Fish {
             finMovement *= -1;
             finMovementCount = 0;
         }
-
     }
 }

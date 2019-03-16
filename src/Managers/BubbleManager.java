@@ -18,7 +18,8 @@ public class BubbleManager {
     float transparency, radius, offsetX, offsetY, age;
 
     public void populate() {
-        for(int i = 0; i <= BUBBLE_AMOUNT; i++) {
+
+        if(BUBBLE_AMOUNT > bubbles.size()) {
             transparency = Rand.getFloatBetween(0.5f, 1.0f);
             radius = Rand.getFloatBetween(0.03f, 0.05f);
             offsetX = Rand.getFloatBetween(0.7f, 0.9f);
@@ -27,6 +28,7 @@ public class BubbleManager {
 
             bubbles.add(new Bubble(radius, offsetX, offsetY, age, WHITE, transparency));
         }
+
     }
 
     public void draw(GL2 gl) {
@@ -36,6 +38,12 @@ public class BubbleManager {
                 bub.draw(gl);
                 bub.animate(gl);
                 reset();
+            }
+        } else if (!enabled) {
+            for (Bubble bub : bubbles) {
+                bub.draw(gl);
+                bub.animate(gl);
+                remove();
             }
         }
     }
@@ -56,6 +64,19 @@ public class BubbleManager {
                 bub.offsetX = resetX;
                 bub.transparency = transparency;
                 bub.radius = radius;
+            }
+        }
+    }
+
+    public void remove() {
+        if(!enabled) {
+            for(Bubble bub : bubbles) {
+                if(bub.offsetY >= Water.WAVE_WATER_HEIGHT) {
+                    bubbles.remove(bub);
+                }
+                if(bub.transparency < 0.0f || bub.radius < 0.0f) {
+                    bubbles.remove(bub);
+                }
             }
         }
     }
