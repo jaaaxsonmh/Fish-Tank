@@ -20,17 +20,21 @@ import java.awt.event.WindowEvent;
  */
 public class Scene implements GLEventListener, MouseListener{
     private static final int BUTTONS_SIZE = 2;
-    private boolean enabled =  true;
+    private boolean enabled =  false;
 
     private Tank tank = new Tank();
-    private Button button = new Button();
     private BubbleManager bub = new BubbleManager();
     private Pump pump = new Pump();
+
+    private Button[] buttons =  new Button[BUTTONS_SIZE];
     private int base;
     private static int winSize;
 
-    private Button[] buttons;
-
+    private Scene() {
+        for(int i = 0; i < BUTTONS_SIZE; i++) {
+            buttons[i] = new Button(0.25f, 0.08f);
+        }
+    }
 
 
     @Override
@@ -39,17 +43,14 @@ public class Scene implements GLEventListener, MouseListener{
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
-        // draw the tank
-        // sand and water.
+        // draw the tank environment
         tank.draw(gl);
-
-        button.draw(gl);
-        button.addTitle(gl);
 
         //draw pump from list
         gl.glCallList(pump.baseList);
         gl.glCallList(pump.holderList);
         gl.glCallList(pump.plugList);
+
 
         bub.draw(gl);
 
@@ -103,7 +104,7 @@ public class Scene implements GLEventListener, MouseListener{
         float openglX = 2.0f * (mouseX / winSize) - 1.0f;
         float openglY = 2.0f * (mouseY / winSize) - 1.0f;
 
-        if (openglY >= 0.80f) {
+        if (openglY >= 0.80f && openglY <= 0.95 && openglX >= -0.85 && openglX <= -0.65) {
             if(enabled) {
                 enabled = false;
             } else {

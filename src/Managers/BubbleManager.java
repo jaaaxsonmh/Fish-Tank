@@ -18,6 +18,7 @@ public class BubbleManager {
     float transparency, radius, offsetX, offsetY, age;
 
     public void populate() {
+        for(int i = 0; i <= BUBBLE_AMOUNT; i++) {
             transparency = Rand.getFloatBetween(0.5f, 1.0f);
             radius = Rand.getFloatBetween(0.03f, 0.05f);
             offsetX = Rand.getFloatBetween(0.7f, 0.9f);
@@ -25,6 +26,7 @@ public class BubbleManager {
             age = Rand.getFloatBetween(0.005f, 0.01f);
 
             bubbles.add(new Bubble(radius, offsetX, offsetY, age, WHITE, transparency));
+        }
     }
 
     public void draw(GL2 gl) {
