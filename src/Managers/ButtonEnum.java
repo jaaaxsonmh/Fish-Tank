@@ -2,13 +2,13 @@ package Managers;
 
 import java.util.HashMap;
 
-enum ButtonEnum {
+public enum ButtonEnum {
     BUBBLES(0), FISH(1);
 
-    static HashMap<Integer, String> Title = new HashMap<>();
-    final int ID;
+    public static HashMap<Integer, String> Title = new HashMap<>();
+    public final int ID;
 
-    static void init() {
+    public static void init() {
         Title.put(0, "Bubbles");
         Title.put(1, "Spawn Fish");
     }

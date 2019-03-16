@@ -48,10 +48,10 @@ public class BubbleManager {
             float radius = Rand.getFloatBetween(0.03f, 0.05f);
             float transparency = Rand.getFloatBetween(0.5f, 1.0f);
 
-            if(bub.offsetY > Water.WAVE_WATER_HEIGHT) {
+            if(bub.offsetY >= Water.WAVE_WATER_HEIGHT) {
                 bub.offsetY = resetY;
             }
-            if(bub.transparency < 0.001f || bub.radius < 0.001f) {
+            if(bub.transparency < 0.0f || bub.radius < 0.0f) {
                 bub.offsetY = resetY;
                 bub.offsetX = resetX;
                 bub.transparency = transparency;

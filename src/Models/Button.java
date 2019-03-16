@@ -5,9 +5,9 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import ulits.Colour;
 
 public class Button {
-    private final Colour GREEN = new Colour(0.392f, 0.867f, 0.090f);
-    private final Colour BLACK = new Colour(0.373f, 0.382f, 0.347f);
-    private final Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);
+    public static final Colour GREEN = new Colour(0.392f, 0.867f, 0.090f);
+    public static final Colour BLACK = new Colour(0.373f, 0.382f, 0.347f);
+    public final Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);
 
     private final static GLUT glut = new GLUT();
     private float WIDTH, HEIGHT;
@@ -19,16 +19,21 @@ public class Button {
         HEIGHT = height;
     }
 
-    private boolean isEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    void onClick() {
+    public void onClick() {
         enabled = !enabled;
     }
 
 
     public void draw(GL2 gl, float x, float y) {
+//        if(isEnabled()) {
+//            Colour.setColourRGBA(GREEN, gl);
+//        } else {
+//            Colour.setColourRGBA(BLACK, gl);
+//        }
         gl.glBegin(GL2.GL_POLYGON);
         //top left
         gl.glVertex2f(x, y);
@@ -37,7 +42,7 @@ public class Button {
         // bottom right
         gl.glVertex2f(x + WIDTH, y + HEIGHT);
         // bottom left
-        gl.glVertex2f(-x, y + HEIGHT);
+        gl.glVertex2f(x, y + HEIGHT);
         gl.glEnd();
     }
 
@@ -45,5 +50,13 @@ public class Button {
         Colour.setColourRGBA(WHITE, gl);
         gl.glRasterPos2d(x, y);
         glut.glutBitmapString(GLUT.BITMAP_TIMES_ROMAN_24, title);
+    }
+
+    public float getWidth() {
+        return WIDTH;
+    }
+
+    public float getHeight() {
+        return HEIGHT;
     }
 }
