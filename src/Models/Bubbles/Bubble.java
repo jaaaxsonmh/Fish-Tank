@@ -22,7 +22,7 @@ public class Bubble extends Circle {
     }
 
     public void draw(GL2 gl){
-        super.draw(gl, offsetX, offsetY, colour, transparency);
+        super.draw(gl, offsetX, offsetY, colour, colour, transparency);
     }
 
     public void animate(GL2 gl){

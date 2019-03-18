@@ -2,36 +2,48 @@ package objects;
 
 import com.jogamp.opengl.GL2;
 import ulits.Colour;
-import ulits.Coords;
 
 
 public class Fins {
-    private Coords pA, pB, pC;
-    private Colour colour;
-    private float transparency;
+    private Colour innerColour, outerColour;
+    private float pointBY, pointCY;
+    private float xRadius;
 
 
-    Fins(Coords a, Coords b, Coords c, Colour colour, float transparency) {
-        this.pA = a;
-        this.pB = b;
-        this.pC = c;
-        this.colour = colour;
-        this.transparency = transparency;
+    Fins(float xRadius,float pointBY, float pointCY, Colour innerColour, Colour outerColour) {
+        this.innerColour = innerColour;
+        this.outerColour = outerColour;
+
+        this.xRadius = xRadius;
+        this.pointBY = pointBY;
+        this.pointCY = pointCY;
+
     }
 
     // move the points from B-C and A stays still.
-    public void movePointsBC(float distance) {
-
-            pB.y -= distance;
-            pC.y -= distance;
+    public void moveYBC(float distance, float y) {
+        pointBY -= distance - y;
+        pointCY -= distance - y;
     }
 
-    void draw(GL2 gl) {
+    void drawRight(GL2 gl, float x, float y) {
         gl.glBegin(GL2.GL_TRIANGLE_STRIP);
-        Colour.setColourRGBA(colour, gl);
-        gl.glVertex2f(pA.x, pA.y);
-        gl.glVertex2f(pB.x, pB.y);
-        gl.glVertex2f(pC.x, pC.y);
+        Colour.setColourRGBA(innerColour, gl);
+        gl.glVertex2f(x, y);
+        Colour.setColourRGBA(outerColour, gl);
+
+        gl.glVertex2f(x + xRadius , pointBY);
+        gl.glVertex2f(x + xRadius , pointCY);
+        gl.glEnd();
+    }
+
+    public void drawLeft(GL2 gl, float x, float y) {
+        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+        Colour.setColourRGBA(innerColour, gl);
+        gl.glVertex2f(x, y);
+        Colour.setColourRGBA(outerColour, gl);
+        gl.glVertex2f(x - xRadius , pointBY);
+        gl.glVertex2f(x - xRadius , pointCY);
         gl.glEnd();
     }
 }

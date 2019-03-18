@@ -51,6 +51,7 @@ public class Scene implements GLEventListener, MouseListener{
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
+
         // draw the tank environment
         tank.draw(gl);
 
@@ -58,6 +59,15 @@ public class Scene implements GLEventListener, MouseListener{
         gl.glCallList(pump.baseList);
         gl.glCallList(pump.holderList);
         gl.glCallList(pump.plugList);
+
+
+        for(Fish fish : fishs) {
+            fish.draw(gl);
+            fish.animate();
+        }
+
+        bub.draw(gl);
+
 
         //Draw buttons, increase the location so that they dont display ontop of eachother.
         // set up enabled listener to change the colour of buttons.
@@ -78,14 +88,6 @@ public class Scene implements GLEventListener, MouseListener{
             //Add the text to the buttons and change values so its 'kinda' center
             buttons[i].addTitle(gl, ButtonEnum.Title.get(i), -0.86f+(i*0.34f), 0.930f);
         }
-
-        for(Fish fish : fishs) {
-            fish.draw(gl);
-            //fish.animate();
-        }
-
-        bub.draw(gl);
-
         gl.glFlush();
     }
 
@@ -145,7 +147,7 @@ public class Scene implements GLEventListener, MouseListener{
                 buttons[i].onClick();
                 if(i == ButtonEnum.FISH.ID)
                 {
-                    Fish fish = new Fish(Rand.getFloatBetween(-0.90f, 0.90f), Rand.getFloatBetween(-0.95f, 0.70f), winSize, winSize);
+                    Fish fish = new Fish(Rand.getFloatBetween(-0.90f, 0.90f), Rand.getFloatBetween(-0.95f, 0.70f));
                     fishs.add(fish);
                 }
                 if(buttons[i].isEnabled()) {
@@ -163,7 +165,7 @@ public class Scene implements GLEventListener, MouseListener{
 
         if(openglY <= 0.75f) {
             System.out.println("CLICKED:" + openglX + ", " + openglY);
-            Fish fish = new Fish(openglX, openglY, winSize, winSize);
+            Fish fish = new Fish(openglX, openglY);
             fishs.add(fish);
         }
     }
