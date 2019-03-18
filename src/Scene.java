@@ -81,6 +81,7 @@ public class Scene implements GLEventListener, MouseListener{
 
         for(Fish fish : fishs) {
             fish.draw(gl);
+            fish.animate();
         }
 
         bub.draw(gl);
@@ -144,7 +145,7 @@ public class Scene implements GLEventListener, MouseListener{
                 buttons[i].onClick();
                 if(i == ButtonEnum.FISH.ID)
                 {
-                    Fish fish = new Fish(Rand.getFloatBetween(-1.0f, 1.0f), Rand.getFloatBetween(-1.0f, 0.70f));
+                    Fish fish = new Fish(Rand.getFloatBetween(-0.90f, 0.90f), Rand.getFloatBetween(-0.95f, 0.70f), winSize, winSize);
                     fishs.add(fish);
                 }
                 if(buttons[i].isEnabled()) {
@@ -162,7 +163,7 @@ public class Scene implements GLEventListener, MouseListener{
 
         if(openglY <= 0.75f) {
             System.out.println("CLICKED:" + openglX + ", " + openglY);
-            Fish fish = new Fish(openglX, openglY);
+            Fish fish = new Fish(openglX, openglY, winSize, winSize);
             fishs.add(fish);
         }
     }
