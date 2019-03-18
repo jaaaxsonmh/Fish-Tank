@@ -81,7 +81,7 @@ public class Scene implements GLEventListener, MouseListener{
 
         for(Fish fish : fishs) {
             fish.draw(gl);
-            fish.animate();
+            //fish.animate();
         }
 
         bub.draw(gl);

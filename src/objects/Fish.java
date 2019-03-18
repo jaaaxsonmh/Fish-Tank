@@ -32,11 +32,11 @@ public class Fish {
         this.yRadius = 0.02f;
         finMovement = 0.002f;
         drawEyes();
+        drawFins();
         drawBody();
     }
 
     public void drawFins() {
-
         rightA = new Coords(x, y);
         rightB = new Coords(x + xRadius + (xRadius / 3), y + yRadius);
         rightC = new Coords(x + xRadius + (xRadius / 3), y - yRadius);
@@ -64,7 +64,6 @@ public class Fish {
     }
 
     public void draw(GL2 gl) {
-        drawFins();
 
         rightFin.draw(gl);
         leftFin.draw(gl);
