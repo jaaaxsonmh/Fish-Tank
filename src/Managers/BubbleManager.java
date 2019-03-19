@@ -8,7 +8,6 @@ import ulits.Rand;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BubbleManager {
     private final static Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);

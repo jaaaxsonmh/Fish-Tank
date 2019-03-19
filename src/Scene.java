@@ -23,24 +23,25 @@ import java.util.ArrayList;
  *
  * @author jwhalley
  */
-public class Scene implements GLEventListener, MouseListener{
-    private static final int BUTTONS_SIZE = 2;
+public class Scene implements GLEventListener, MouseListener {
+    private static final int BUTTONS_SIZE = 3;
 
-    private boolean enabled =  true;
+    private boolean enabled = true;
 
     private Tank tank = new Tank();
     private BubbleManager bub = new BubbleManager();
     private Pump pump = new Pump();
 
-    private ArrayList<Fish> fishs = new ArrayList<Fish>();
-    private Button[] buttons =  new Button[BUTTONS_SIZE];
+    private ArrayList<Fish> fishs = new ArrayList<>();
+    private Button[] buttons = new Button[BUTTONS_SIZE];
     private int base;
     private static int winSize;
+    private ArrayList toRemove = new ArrayList();
 
     private Scene() {
         ButtonEnum.init();
-        for(int i = 0; i < BUTTONS_SIZE; i++) {
-            buttons[i] = new Button(0.35f, 0.065f);
+        for (int i = 0; i < BUTTONS_SIZE; i++) {
+            buttons[i] = new Button(0.25f, 0.065f);
         }
     }
 
@@ -61,7 +62,7 @@ public class Scene implements GLEventListener, MouseListener{
         gl.glCallList(pump.plugList);
 
 
-        for(Fish fish : fishs) {
+        for (Fish fish : fishs) {
             fish.draw(gl);
             fish.animate();
         }
@@ -71,10 +72,17 @@ public class Scene implements GLEventListener, MouseListener{
 
         //Draw buttons, increase the location so that they dont display ontop of eachother.
         // set up enabled listener to change the colour of buttons.
-        for(int i = 0; i < BUTTONS_SIZE; i++) {
-            Colour.setColourRGBA(Button.BLACK, gl);
-            
-            if(buttons[i].isEnabled()) {
+        for (int i = 0; i < BUTTONS_SIZE; i++) {
+            if (buttons[i].isEnabled()) {
+                // change colour of button to green
+                Colour.setColourRGBA(Button.BLACK, gl);
+
+            } else {
+                Colour.setColourRGBA(Button.RED, gl);
+
+            }
+            buttons[i].draw(gl, -0.945f + (i * (buttons[i].getWidth() + 0.02f)), 0.913f);
+            if (buttons[i].isEnabled()) {
                 // change colour of button to green
                 Colour.setColourRGBA(Button.GREEN, gl);
             } else {
@@ -83,10 +91,13 @@ public class Scene implements GLEventListener, MouseListener{
 
             //x: -0.95 base and then increase the buttons by index so they are spaced out
             //y: have y point of 0.915
-            buttons[i].draw(gl, -0.95f+(i*(buttons[i].getWidth()+0.02f)), 0.915f);
-            
+            buttons[i].draw(gl, -0.95f + (i * (buttons[i].getWidth() + 0.02f)), 0.915f);
+
+
+
+
             //Add the text to the buttons and change values so its 'kinda' center
-            buttons[i].addTitle(gl, ButtonEnum.Title.get(i), -0.86f+(i*0.34f), 0.930f);
+            buttons[i].addTitle(gl, ButtonEnum.Title.get(i), -0.92f + (i * 0.26f), 0.930f);
         }
         gl.glFlush();
     }
@@ -119,8 +130,6 @@ public class Scene implements GLEventListener, MouseListener{
     }
 
 
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -128,7 +137,45 @@ public class Scene implements GLEventListener, MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+        float mouseX = e.getX();
+        float mouseY = winSize - e.getY();
 
+        float openglX = 2.0f * (mouseX / winSize) - 1.0f;
+        float openglY = 2.0f * (mouseY / winSize) - 1.0f;
+
+//        buttons[i].draw(gl, -0.95f+(i*(buttons[i].getWidth()+0.02f)), 0.915f);
+        for (int i = 0; i < BUTTONS_SIZE; i++) {
+            if (openglX >= -0.95 + (i * (buttons[i].getWidth() + 0.025f))
+                    && openglX <= -0.95 + i * buttons[i].getWidth() + buttons[i].getWidth()
+                    && openglY >= 0.915f && openglY <= 0.915f + buttons[i].getHeight()
+                    ) {
+                buttons[i].onClick();
+                if (i == ButtonEnum.FISH.ID) {
+                    Fish fish = new Fish(Rand.getFloatBetween(-0.90f, 0.90f), Rand.getFloatBetween(-0.95f, 0.70f));
+                    fishs.add(fish);
+                }
+                if (buttons[i].isEnabled()) {
+                    if (i == ButtonEnum.BUBBLES.ID) {
+                        bub.setEnabled(true);
+                    }
+                    if (i == ButtonEnum.REMOVE.ID) {
+                        fishs.removeAll(fishs);
+                    }
+
+                }
+                if (!buttons[i].isEnabled()) {
+                    if (i == ButtonEnum.BUBBLES.ID) {
+                        bub.setEnabled(false);
+                    }
+                }
+            }
+        }
+
+        if (openglY <= 0.75f) {
+            System.out.println("CLICKED:" + openglX + ", " + openglY);
+            Fish fish = new Fish(openglX, openglY);
+            fishs.add(fish);
+        }
     }
 
     @Override
@@ -139,34 +186,17 @@ public class Scene implements GLEventListener, MouseListener{
         float openglX = 2.0f * (mouseX / winSize) - 1.0f;
         float openglY = 2.0f * (mouseY / winSize) - 1.0f;
 
-        for(int i = 0; i < BUTTONS_SIZE; i++) {
-            if (openglX >= -0.95 + (i*(buttons[i].getWidth()+0.05f))
-                    && openglX <= -0.95 + i*buttons[i].getWidth()+ buttons[i].getWidth()
-                    && openglY >= 0.915f && openglY <= 0.915f +buttons[i].getHeight()
+        for (int i = 0; i < BUTTONS_SIZE; i++)
+
+        {
+            if (openglX >= -0.95 + (i * (buttons[i].getWidth() + 0.025f))
+                    && openglX <= -0.95 + i * buttons[i].getWidth() + buttons[i].getWidth()
+                    && openglY >= 0.915f && openglY <= 0.915f + buttons[i].getHeight()
                     ) {
-                buttons[i].onClick();
-                if(i == ButtonEnum.FISH.ID)
-                {
-                    Fish fish = new Fish(Rand.getFloatBetween(-0.90f, 0.90f), Rand.getFloatBetween(-0.95f, 0.70f));
-                    fishs.add(fish);
-                }
-                if(buttons[i].isEnabled()) {
-                    if(i == ButtonEnum.BUBBLES.ID) {
-                        bub.setEnabled(true);
-                    }
-                }
-                if(!buttons[i].isEnabled()){
-                    if(i == ButtonEnum.BUBBLES.ID) {
-                        bub.setEnabled(false);
-                    }
+                if(i == ButtonEnum.FISH.ID || i == ButtonEnum.REMOVE.ID) {
+                    buttons[i].onClick();
                 }
             }
-        }
-
-        if(openglY <= 0.75f) {
-            System.out.println("CLICKED:" + openglX + ", " + openglY);
-            Fish fish = new Fish(openglX, openglY);
-            fishs.add(fish);
         }
     }
 

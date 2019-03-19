@@ -26,6 +26,8 @@ public class Fins {
         pointCY -= distance - y;
     }
 
+
+
     void drawRight(GL2 gl, float x, float y) {
         gl.glBegin(GL2.GL_TRIANGLE_STRIP);
         Colour.setColourRGBA(innerColour, gl);
@@ -45,5 +47,16 @@ public class Fins {
         gl.glVertex2f(x - xRadius , pointBY);
         gl.glVertex2f(x - xRadius , pointCY);
         gl.glEnd();
+    }
+
+    public void drawTop(GL2 gl, float x, float y) {
+        gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+        Colour.setColourRGBA(innerColour, gl);
+        gl.glVertex2f(x, y);
+        Colour.setColourRGBA(outerColour, gl);
+        gl.glVertex2f(x + xRadius, pointBY);
+        gl.glVertex2f(x - xRadius, pointCY);
+        gl.glEnd();
+
     }
 }

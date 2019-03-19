@@ -12,13 +12,11 @@ public class Fish {
     public float y;
     private float vx = Rand.getFloatBetween(-0.01f, 0.01f);
     private float vy = Rand.getFloatBetween(-0.01f, 0.01f);
-    private float offset02 = 0.02f;
-    private float offset025 = 0.025f;
 
-    public float xRadius, yRadius, finMovement;
-    private Fins rightFin, leftFin;
+    private float xRadius, yRadius, finMovement;
+    private Fins rightFin, leftFin, headFin;
     private Oval body;
-    private Circle rightEye, leftEye, rightPupil, leftEyePupil, leftEyeShadow, rightEyeShadow, innerMouth;
+    private Circle rightEye, leftEye, rightPupil, leftEyePupil, leftEyeShadow, rightEyeShadow, innerMouth, outerMouth;
     private int finMovementCount = 0;
 
 
@@ -38,6 +36,7 @@ public class Fish {
 
         rightFin = new Fins(xRadius, y + yRadius, y - yRadius, WHITE, ORANGE);
         leftFin = new Fins(xRadius, y + yRadius, y - yRadius, WHITE, ORANGE);
+        headFin = new Fins(xRadius, y + 0.04f, y + 0.04f, WHITE, ORANGE);
 
     }
 
@@ -57,13 +56,16 @@ public class Fish {
 
     public void drawMouth() {
         innerMouth = new Circle(1.0f, 0.013f);
+        outerMouth = new Circle (1.0f, 0.008f);
     }
 
     public void draw(GL2 gl) {
         rightFin.drawRight(gl, x, y);
         leftFin.drawLeft(gl, x, y);
+        headFin.drawTop(gl, x, y);
         rightFin.moveYBC(finMovement, vy);
         leftFin.moveYBC(finMovement, vy);
+        headFin.moveYBC(finMovement, vy);
 
         finMovementCount++;
         if (finMovementCount > 5) {
@@ -73,8 +75,11 @@ public class Fish {
 
         body.draw(gl, x, y, ORANGE, WHITE, 1.0f);
 
-        innerMouth.draw(gl, x- offset02, y - offset025, WHITE, WHITE, 1.0f);
+        float offset025 = 0.025f;
+        innerMouth.draw(gl, x - 0.005f, y - offset025, WHITE, WHITE, 1.0f);
+        outerMouth.draw(gl, x - 0.005f, y - offset025, ORANGE, ORANGE, 0.1f);
 
+        float offset02 = 0.02f;
         rightEyeShadow.draw(gl, x + offset02, y + offset02, BLACK, BLACK, 1.0f);
         rightEye.draw(gl, x + offset02, y + offset02, WHITE, WHITE, 1.0f);
         rightPupil.draw(gl, x + offset02, y + offset02, BLACK, BLACK, 1.0f);
