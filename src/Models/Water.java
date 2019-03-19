@@ -8,7 +8,6 @@ import ulits.Colour;
  * @studentID 16932920
  */
 
-
 public class Water {
 
     private final static Colour BLUE_800 = new Colour(0.25882f, 0.64706f, 0.96078f, 0.8f);

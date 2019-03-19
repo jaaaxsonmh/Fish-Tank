@@ -7,7 +7,6 @@ import java.util.Random;
  * @studentID 16932920
  */
 
-
 public class Rand {
 
     private Rand() {

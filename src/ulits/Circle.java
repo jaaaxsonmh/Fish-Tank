@@ -7,7 +7,6 @@ import com.jogamp.opengl.GL2;
  * @studentID 16932920
  */
 
-
 public class Circle {
     public float radius;
     public float transparency;

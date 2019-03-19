@@ -5,7 +5,6 @@ package ulits;
  * @studentID 16932920
  */
 
-
 public class Coords {
     public float x;
     public float y;

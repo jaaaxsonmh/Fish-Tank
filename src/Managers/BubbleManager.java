@@ -14,7 +14,6 @@ import java.util.List;
  * @studentID 16932920
  */
 
-
 public class BubbleManager {
     private final static Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);
 

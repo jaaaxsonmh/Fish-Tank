@@ -9,7 +9,6 @@ import ulits.Colour;
  * @studentID 16932920
  */
 
-
 public class Bubble extends Circle {
 
     private Colour colour;

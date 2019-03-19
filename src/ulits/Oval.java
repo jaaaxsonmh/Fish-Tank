@@ -7,7 +7,6 @@ import com.jogamp.opengl.GL2;
  * @studentID 16932920
  */
 
-
 public class Oval {
     private float xRadius, yRadius;
     private float transparency;

@@ -7,7 +7,6 @@ import com.jogamp.opengl.GL2;
  * @studentID 16932920
  */
 
-
 public class Colour {
     private float red = 1.0f;
     private float green = 1.0f;

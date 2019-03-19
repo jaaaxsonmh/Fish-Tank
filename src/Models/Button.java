@@ -9,7 +9,6 @@ import ulits.Colour;
  * @studentID 16932920
  */
 
-
 public class Button {
     public static final Colour GREEN = new Colour(0.392f, 0.867f, 0.090f);
     public static final Colour BLACK = new Colour(0.373f, 0.382f, 0.347f);

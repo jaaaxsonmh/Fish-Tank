@@ -8,7 +8,6 @@ import ulits.*;
  * @studentID 16932920
  */
 
-
 public class Fish {
     private static final Colour ORANGE = new Colour(0.937f, 0.424f, 0.0f);
     private static final Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);

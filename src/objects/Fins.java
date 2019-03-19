@@ -8,7 +8,6 @@ import ulits.Colour;
  * @studentID 16932920
  */
 
-
 class Fins {
     private Colour innerColour, outerColour;
     private float pointBY, pointCY;
