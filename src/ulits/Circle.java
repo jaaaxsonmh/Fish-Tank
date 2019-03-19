@@ -2,6 +2,12 @@ package ulits;
 
 import com.jogamp.opengl.GL2;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class Circle {
     public float radius;
     public float transparency;

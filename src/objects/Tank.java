@@ -4,9 +4,12 @@ import Models.Sand.SandBase;
 import com.jogamp.opengl.GL2;
 import Models.Water;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
 
 public class Tank {
-
 
     private Water water;
     private SandBase sand;

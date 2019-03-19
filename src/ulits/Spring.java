@@ -1,5 +1,10 @@
 package ulits;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
 public class Spring {
 
     public float xPos, yPos;

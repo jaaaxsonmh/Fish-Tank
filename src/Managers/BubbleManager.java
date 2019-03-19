@@ -9,29 +9,31 @@ import ulits.Rand;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class BubbleManager {
     private final static Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);
 
     private List<Bubble> bubbles = new ArrayList<>();
     private List<Bubble> toRemove = new ArrayList<>();
     private static final int BUBBLE_AMOUNT = 40;
-    public boolean enabled;
-    float transparency, radius, offsetX, offsetY, age;
+    private boolean enabled;
 
-    public void populate() {
+    private void populate() {
 
         if (BUBBLE_AMOUNT > bubbles.size()) {
-            transparency = Rand.getFloatBetween(0.5f, 1.0f);
-            radius = Rand.getFloatBetween(0.03f, 0.05f);
-            offsetX = Rand.getFloatBetween(0.7f, 0.9f);
-            offsetY = Rand.getFloatBetween(-0.7f, -0.8f);
-            age = Rand.getFloatBetween(0.005f, 0.01f);
+            float transparency = Rand.getFloatBetween(0.5f, 1.0f);
+            float radius = Rand.getFloatBetween(0.03f, 0.05f);
+            float offsetX = Rand.getFloatBetween(0.7f, 0.9f);
+            float offsetY = Rand.getFloatBetween(-0.7f, -0.8f);
+            float age = Rand.getFloatBetween(0.005f, 0.01f);
 
             bubbles.add(new Bubble(radius, offsetX, offsetY, age, WHITE, transparency));
-
-
         }
-
     }
 
     public void draw(GL2 gl) {
@@ -55,7 +57,7 @@ public class BubbleManager {
     }
 
 
-    public void reset() {
+    private void reset() {
         for (Bubble bub : bubbles) {
             float resetY = Rand.getFloatBetween(-0.7f, -0.8f);
             float resetX = Rand.getFloatBetween(0.7f, 0.9f);
@@ -74,13 +76,13 @@ public class BubbleManager {
         }
     }
 
-    public void hardReset() {
+    private void hardReset() {
         for (Bubble bub : bubbles) {
             if (bub.offsetY >= Water.WAVE_WATER_HEIGHT) {
                 toRemove.add(bub);
             }
             if (bub.transparency < 0.0f || bub.radius < 0.0f) {
-               toRemove.add(bub);
+                toRemove.add(bub);
             }
         }
     }

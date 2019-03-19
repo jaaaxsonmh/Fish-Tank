@@ -2,35 +2,21 @@ package ulits;
 
 import java.util.Random;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class Rand {
 
     private Rand() {
 
     }
 
-    public final static Random rand = new Random();
-
-    public static int getIntBetween(int min, int max) {
-        return rand.nextInt((max - min) + 1)+ min;
-    }
+    private final static Random rand = new Random();
 
     public static float getFloatBetween(float min, float max) {
         return rand.nextFloat() * (max - min) + min;
     }
-
-    public static float getFloatBetweenMin(float min, float max) {
-        return rand.nextFloat() * (min) + max;
-    }
-
-    public static Colour getRandomRGB() {
-        return new Colour(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-    }
-
-    public static Colour getRandomRGBA() {
-        return new Colour(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-    }
-
-
-
-
 }

@@ -3,15 +3,19 @@ package Models.Sand;
 import com.jogamp.opengl.GL2;
 import ulits.Colour;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
 
 public class SandBase {
 
-    final static float BASE_HEIGHT = -0.80f;
+    private final static float BASE_HEIGHT = -0.80f;
 
-    private final static Colour YELLOW_100 = new Colour( 1.00000f, 0.97647f, 0.76863f, 0.0f);
+    private final static Colour YELLOW_100 = new Colour(1.00000f, 0.97647f, 0.76863f, 0.0f);
     private final static Colour YELLOW_400 = new Colour(1.00000f, 0.93333f, 0.34510f);
 
-    private final static Colour AMBER_500 = new Colour(1.00000f, 0.87843f, 0.50980f  );
+    private final static Colour AMBER_500 = new Colour(1.00000f, 0.87843f, 0.50980f);
     private final static Colour AMBER_200 = new Colour(1.00000f, 0.75686f, 0.02745f, 0.0f);
 
     public void draw(GL2 gl) {

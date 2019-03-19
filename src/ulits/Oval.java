@@ -2,9 +2,15 @@ package ulits;
 
 import com.jogamp.opengl.GL2;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class Oval {
-    public float xRadius, yRadius;
-    public float transparency;
+    private float xRadius, yRadius;
+    private float transparency;
 
 
     public Oval(float transparency, float xRadius, float yRadius) {
@@ -18,7 +24,6 @@ public class Oval {
         gl.glBegin(GL2.GL_TRIANGLE_FAN);
         Colour.setDynamicColourRGBA(innerColour, transparency, gl);
         gl.glVertex2f(offsetX, offsetY);
-
 
         for (int j = 0; j <= 361; j++) {
             double angle = 2 * Math.PI * j / 361;

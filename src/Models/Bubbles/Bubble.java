@@ -4,9 +4,13 @@ import com.jogamp.opengl.GL2;
 import ulits.Circle;
 import ulits.Colour;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class Bubble extends Circle {
-
-
 
     private Colour colour;
     private final float AGE;

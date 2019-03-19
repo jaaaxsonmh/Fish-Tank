@@ -3,13 +3,19 @@ package objects;
 import com.jogamp.opengl.GL2;
 import ulits.*;
 
+/**
+ * @author Jack Hosking
+ * @studentID 16932920
+ */
+
+
 public class Fish {
     private static final Colour ORANGE = new Colour(0.937f, 0.424f, 0.0f);
     private static final Colour WHITE = new Colour(1.0f, 1.0f, 1.0f);
     private static final Colour BLACK = new Colour(0.0f, 0.0f, 0.0f);
 
-    public float x;
-    public float y;
+    private float x;
+    private float y;
     private float vx = Rand.getFloatBetween(-0.01f, 0.01f);
     private float vy = Rand.getFloatBetween(-0.01f, 0.01f);
 
@@ -18,7 +24,6 @@ public class Fish {
     private Oval body;
     private Circle rightEye, leftEye, rightPupil, leftEyePupil, leftEyeShadow, rightEyeShadow, innerMouth, outerMouth;
     private int finMovementCount = 0;
-
 
     public Fish(float x, float y) {
         this.x = x;
@@ -32,15 +37,13 @@ public class Fish {
         drawMouth();
     }
 
-    public void drawFins() {
-
+    private void drawFins() {
         rightFin = new Fins(xRadius, y + yRadius, y - yRadius, WHITE, ORANGE);
         leftFin = new Fins(xRadius, y + yRadius, y - yRadius, WHITE, ORANGE);
         headFin = new Fins(xRadius, y + 0.04f, y + 0.04f, WHITE, ORANGE);
-
     }
 
-    public void drawEyes() {
+    private void drawEyes() {
         rightEyeShadow = new Circle(1.0f, 0.026f);
         rightEye = new Circle(1.0f, 0.024f);
         rightPupil = new Circle(1.0f, 0.006f);
@@ -50,13 +53,14 @@ public class Fish {
         leftEyePupil = new Circle(1.0f, 0.004f);
     }
 
-    public void drawBody() {
+    @SuppressWarnings("SuspiciousNameCombination")
+    private void drawBody() {
         body = new Oval(1.0f, 0.04f, xRadius);
     }
 
-    public void drawMouth() {
+    private void drawMouth() {
         innerMouth = new Circle(1.0f, 0.013f);
-        outerMouth = new Circle (1.0f, 0.008f);
+        outerMouth = new Circle(1.0f, 0.008f);
     }
 
     public void draw(GL2 gl) {

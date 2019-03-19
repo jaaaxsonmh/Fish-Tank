@@ -17,16 +17,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-
 /**
- * Draws a line based on x,y coordinates stored in an array
- *
- * @author jwhalley
+ * @author Jack Hosking
+ * @studentID 16932920
  */
-public class Scene implements GLEventListener, MouseListener {
-    private static final int BUTTONS_SIZE = 3;
 
-    private boolean enabled = true;
+public class Scene implements GLEventListener, MouseListener {
+
+    private static final int BUTTONS_SIZE = 3;
 
     private Tank tank = new Tank();
     private BubbleManager bub = new BubbleManager();
@@ -34,9 +32,7 @@ public class Scene implements GLEventListener, MouseListener {
 
     private ArrayList<Fish> fishs = new ArrayList<>();
     private Button[] buttons = new Button[BUTTONS_SIZE];
-    private int base;
     private static int winSize;
-    private ArrayList toRemove = new ArrayList();
 
     private Scene() {
         ButtonEnum.init();
@@ -52,7 +48,6 @@ public class Scene implements GLEventListener, MouseListener {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
-
         // draw the tank environment
         tank.draw(gl);
 
@@ -61,7 +56,6 @@ public class Scene implements GLEventListener, MouseListener {
         gl.glCallList(pump.holderList);
         gl.glCallList(pump.plugList);
 
-
         for (Fish fish : fishs) {
             fish.draw(gl);
             fish.animate();
@@ -69,19 +63,18 @@ public class Scene implements GLEventListener, MouseListener {
 
         bub.draw(gl);
 
-
         //Draw buttons, increase the location so that they dont display ontop of eachother.
         // set up enabled listener to change the colour of buttons.
         for (int i = 0; i < BUTTONS_SIZE; i++) {
             if (buttons[i].isEnabled()) {
                 // change colour of button to green
                 Colour.setColourRGBA(Button.BLACK, gl);
-
             } else {
                 Colour.setColourRGBA(Button.RED, gl);
-
             }
+
             buttons[i].draw(gl, -0.945f + (i * (buttons[i].getWidth() + 0.02f)), 0.913f);
+
             if (buttons[i].isEnabled()) {
                 // change colour of button to green
                 Colour.setColourRGBA(Button.GREEN, gl);
@@ -92,9 +85,6 @@ public class Scene implements GLEventListener, MouseListener {
             //x: -0.95 base and then increase the buttons by index so they are spaced out
             //y: have y point of 0.915
             buttons[i].draw(gl, -0.95f + (i * (buttons[i].getWidth() + 0.02f)), 0.915f);
-
-
-
 
             //Add the text to the buttons and change values so its 'kinda' center
             buttons[i].addTitle(gl, ButtonEnum.Title.get(i), -0.92f + (i * 0.26f), 0.930f);
@@ -115,7 +105,7 @@ public class Scene implements GLEventListener, MouseListener {
         gl.glShadeModel(GL2.GL_SMOOTH);
         gl.glEnable(GL2.GL_BLEND);
 
-        base = gl.glGenLists(3);
+        int base = gl.glGenLists(3);
 
         //create and pre-compile the display lists
         pump.createBaseList(gl, base);
@@ -143,7 +133,6 @@ public class Scene implements GLEventListener, MouseListener {
         float openglX = 2.0f * (mouseX / winSize) - 1.0f;
         float openglY = 2.0f * (mouseY / winSize) - 1.0f;
 
-//        buttons[i].draw(gl, -0.95f+(i*(buttons[i].getWidth()+0.02f)), 0.915f);
         for (int i = 0; i < BUTTONS_SIZE; i++) {
             if (openglX >= -0.95 + (i * (buttons[i].getWidth() + 0.025f))
                     && openglX <= -0.95 + i * buttons[i].getWidth() + buttons[i].getWidth()
