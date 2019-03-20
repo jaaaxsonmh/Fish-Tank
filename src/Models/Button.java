@@ -54,7 +54,6 @@ public class Button {
         glut.glutBitmapString(GLUT.BITMAP_TIMES_ROMAN_24, title);
     }
 
-
     public float getWidth() {
         return WIDTH;
     }
