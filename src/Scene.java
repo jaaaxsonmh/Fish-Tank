@@ -33,6 +33,7 @@ public class Scene implements GLEventListener, MouseListener {
     private ArrayList<Fish> fishs = new ArrayList<>();
     private Button[] buttons = new Button[BUTTONS_SIZE];
     private static int winSize;
+    private double interp;
 
     private Scene() {
         ButtonEnum.init();
@@ -48,6 +49,13 @@ public class Scene implements GLEventListener, MouseListener {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL2.GL_BLEND);
 
+        double thisTick = System.currentTimeMillis() / 1000.0;
+        double prevTick = thisTick;
+        thisTick = System.currentTimeMillis() / 1000.0;
+        double delta = thisTick - prevTick;
+
+        interp += 1.0 * delta;
+
         // draw the tank environment
         tank.draw(gl);
 
@@ -58,7 +66,7 @@ public class Scene implements GLEventListener, MouseListener {
 
         for (Fish fish : fishs) {
             fish.draw(gl);
-            fish.animate();
+            fish.animate(interp);
         }
 
         bub.draw(gl);
@@ -148,6 +156,7 @@ public class Scene implements GLEventListener, MouseListener {
                         bub.setEnabled(true);
                     }
                     if (i == ButtonEnum.REMOVE.ID) {
+                        //noinspection CollectionAddedToSelf
                         fishs.removeAll(fishs);
                     }
 

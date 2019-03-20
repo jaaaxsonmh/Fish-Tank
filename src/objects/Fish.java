@@ -92,9 +92,10 @@ public class Fish {
         leftEyePupil.draw(gl, x - offset025, y + offset02, BLACK, BLACK, 1.0f);
     }
 
-    public void animate() {
-        x += vx;
-        y += vy;
+    public void animate(double interp) {
+
+        x += vx + interp;
+        y += vy + interp;
 
         if (x > 0.95f) {
             x = 0.95f;

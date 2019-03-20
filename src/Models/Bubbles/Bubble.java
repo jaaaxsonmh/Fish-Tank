@@ -12,7 +12,7 @@ import ulits.Colour;
 public class Bubble extends Circle {
 
     private Colour colour;
-    private final float AGE;
+    private float AGE;
     public float offsetX;
     public float offsetY;
 
@@ -28,9 +28,9 @@ public class Bubble extends Circle {
         super.draw(gl, offsetX, offsetY, colour, colour, transparency);
     }
 
-    public void animate(GL2 gl){
-        gl.glBegin(GL2.GL_TRIANGLE_FAN);
+    public void animate(double interp){
 
+        AGE += interp;
         this.offsetY += AGE;
 
         if(transparency > 0) {
@@ -46,6 +46,5 @@ public class Bubble extends Circle {
             radius = 0;
         }
 
-        gl.glEnd();
     }
 }

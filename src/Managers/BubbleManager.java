@@ -21,6 +21,7 @@ public class BubbleManager {
     private List<Bubble> toRemove = new ArrayList<>();
     private static final int BUBBLE_AMOUNT = 40;
     private boolean enabled;
+    private double interp;
 
     private void populate() {
 
@@ -37,16 +38,23 @@ public class BubbleManager {
 
     public void draw(GL2 gl) {
         if (enabled) {
+            double thisTick = System.currentTimeMillis() / 1000.0;
+            double prevTick = thisTick;
+            thisTick = System.currentTimeMillis() / 1000.0;
+            double delta = thisTick - prevTick;
+
+            interp += 1.0 * delta;
+
             populate();
             for (Bubble bub : bubbles) {
                 bub.draw(gl);
-                bub.animate(gl);
+                bub.animate(interp);
                 reset();
             }
         } else {
             for (Bubble bub : bubbles) {
                 bub.draw(gl);
-                bub.animate(gl);
+                bub.animate(interp);
 
             }
             hardReset();
