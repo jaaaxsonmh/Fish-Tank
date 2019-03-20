@@ -16,7 +16,7 @@ public enum ButtonEnum {
     public static void init() {
         Title.put(0, "Bubbles");
         Title.put(1, "Fish");
-        Title.put(2, "Remove");
+        Title.put(2, "Clear");
     }
 
     ButtonEnum(int id) {
