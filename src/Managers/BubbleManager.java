@@ -36,14 +36,8 @@ public class BubbleManager {
         }
     }
 
-    public void draw(GL2 gl) {
+    public void stateManager(GL2 gl, double interp) {
         if (enabled) {
-            double thisTick = System.currentTimeMillis() / 1000.0;
-            double prevTick = thisTick;
-            thisTick = System.currentTimeMillis() / 1000.0;
-            double delta = thisTick - prevTick;
-
-            interp += 1.0 * delta;
 
             populate();
             for (Bubble bub : bubbles) {

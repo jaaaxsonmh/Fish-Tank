@@ -51,10 +51,15 @@ public class Scene implements GLEventListener, MouseListener {
 
         double thisTick = System.currentTimeMillis() / 1000.0;
         double prevTick = thisTick;
+
         thisTick = System.currentTimeMillis() / 1000.0;
+        System.out.println("prevTick " + prevTick);
+        System.out.println("thistick " + thisTick);
         double delta = thisTick - prevTick;
+        System.out.println("delta: " + delta);
 
         interp += 1.0 * delta;
+        System.out.println("interp " +interp);
 
         // draw the tank environment
         tank.draw(gl);
@@ -69,7 +74,7 @@ public class Scene implements GLEventListener, MouseListener {
             fish.animate(interp);
         }
 
-        bub.draw(gl);
+        bub.stateManager(gl, interp);
 
         //Draw buttons, increase the location so that they dont display ontop of eachother.
         // set up enabled listener to change the colour of buttons.
